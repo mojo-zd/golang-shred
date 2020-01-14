@@ -1,0 +1,10 @@
+#### Option模式  options.go
+#### 工厂模式  factory.go
+#### 适配器模式 adapter.go
+#### 单例模式  singleton.go
+#### 原型模式  prototype.go
+#### 代理模式  proxy.go
+#### 观察者模式 observer.go
+#### Command模式 command.go
+#### 策略模式 strategy.go
+#### 装饰器模式 decorator.go
