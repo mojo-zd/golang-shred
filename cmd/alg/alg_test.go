@@ -6,7 +6,7 @@ import (
 
 // 两数之和
 func TestSum(t *testing.T) {
-	var nums = []int{3, 2, 4,}
+	var nums = []int{3, 2, 4}
 	var target = 6
 	t.Log(twoSum(nums, target))
 }
@@ -30,7 +30,7 @@ func TestAddTwoNum(t *testing.T) {
 			},
 		},
 	}
-	l3 := addTwoNumbers(l1, l2)
+	l3 := addTwoNumber(l1, l2)
 	for {
 		if l3 == nil {
 			return
@@ -40,6 +40,14 @@ func TestAddTwoNum(t *testing.T) {
 	}
 }
 
-func TestSubstring(t *testing.T)  {
-	t.Log(lengthOfLongestSubstring("abcdabcbb"))
+// 字符串最长子字符串
+func TestSubstring(t *testing.T) {
+	//s := "abcdabcebb"
+	//t.Log(s[0:1])
+	t.Log(lengthOfLongestSubstring("abcdabcebb"))
+}
+
+func TestMaxArea(t *testing.T) {
+	var arr = []int{1, 8, 6, 2, 5, 4, 8, 3, 7}
+	maxArea(arr)
 }

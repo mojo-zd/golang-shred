@@ -14,37 +14,30 @@ type ListNode struct {
 	Next *ListNode
 }
 
-func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
-	l3 := &ListNode{}
-	temp := l3
-	var sum, mode int
+func addTwoNumber(l1, l2 *ListNode) *ListNode {
+	header := new(ListNode)
+	curr := header
+	carry := 0
 	for {
-		if l1 == nil && l2 == nil {
-			break
-		}
-		if l1 == nil {
-			sum = l2.Val + mode
-		} else if l2 == nil {
-			sum = l1.Val + mode
-		} else {
-			sum = l1.Val + l2.Val + mode
-		}
-		temp.Next = &ListNode{
-			Val: sum % 10,
-		}
-		temp = temp.Next
-		if l1 != nil {
-			l1 = l1.Next
-		}
-		if l2 != nil {
-			l2 = l2.Next
-		}
-		mode = sum / 10
-		if mode != 0 {
-			temp.Next = &ListNode{
-				Val: mode,
+		if l1 != nil || l2 != nil || carry > 0 {
+			curr.Next = new(ListNode)
+			curr = curr.Next
+			if l1 != nil {
+				curr.Val += l1.Val
+				l1 = l1.Next
 			}
+
+			if l2 != nil {
+				curr.Val += l2.Val
+				l2 = l2.Next
+			}
+
+			curr.Val += carry
+
+			carry = curr.Val / 10
+			curr.Val = curr.Val % 10
+		} else {
+			return header.Next
 		}
 	}
-	return l3.Next
 }
