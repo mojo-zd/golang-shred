@@ -1,6 +1,8 @@
 package alg
 
 import (
+	"github.com/rs/zerolog/log"
+	"strings"
 	"testing"
 )
 
@@ -50,4 +52,65 @@ func TestSubstring(t *testing.T) {
 func TestMaxArea(t *testing.T) {
 	var arr = []int{1, 8, 6, 2, 5, 4, 8, 3, 7}
 	maxArea(arr)
+}
+
+func TestMoveZero(t *testing.T) {
+	needMove := []int{0, 1, 0, 3, 12}
+	MoveZero(needMove)
+	log.Info().Interface("moved", needMove).Send()
+}
+
+func TestStr(t *testing.T) {
+	s := "abcdddaak"
+	log.Info().Int("str", lengthOfLongestSubstring1(s)).Send()
+}
+
+func lengthOfLongestSubstring1(s string) int {
+	if len(s) == 0 {
+		return 0
+	}
+	var start, max int
+	for i := 0; i < len(s); i++ {
+		index := strings.Index(s[start:i], string(s[i]))
+		if index >= 0 {
+			start = i
+			//log.Info().Int("start", start).Send()
+		} else {
+			if len := i - start + 1; len > max {
+				max = len
+				log.Info().Interface("start", start).Interface("i", i).Send()
+			}
+		}
+	}
+	return max
+}
+
+func TestTreeOfMaxDepth(t *testing.T) {
+	root := &TreeNode{
+		Val: 1,
+		Left: &TreeNode{
+			Val: 2,
+			Left: &TreeNode{
+				Val: 3,
+			},
+			Right: &TreeNode{
+				Val: 4,
+				Left: &TreeNode{
+					Val: 5,
+				},
+				Right: &TreeNode{
+					Val: 6,
+				},
+			},
+		},
+		Right: &TreeNode{
+			Val: 7,
+		},
+	}
+
+	log.Info().Int("depth", maxDepth(root)).Send()
+}
+
+func TestClaimStairs(t *testing.T)  {
+	log.Info().Int("claim methods", climbStairs(4)).Send()
 }

@@ -1,0 +1,9 @@
+# github.com/go-sql-driver/mysql v1.5.0
+## explicit
+github.com/go-sql-driver/mysql
+# github.com/rs/zerolog v1.19.0
+## explicit
+github.com/rs/zerolog
+github.com/rs/zerolog/internal/cbor
+github.com/rs/zerolog/internal/json
+github.com/rs/zerolog/log
