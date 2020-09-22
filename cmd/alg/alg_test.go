@@ -85,6 +85,7 @@ func lengthOfLongestSubstring1(s string) int {
 	return max
 }
 
+// 树的深度变量、前序遍历
 func TestTreeOfMaxDepth(t *testing.T) {
 	root := &TreeNode{
 		Val: 1,
@@ -109,8 +110,23 @@ func TestTreeOfMaxDepth(t *testing.T) {
 	}
 
 	log.Info().Int("depth", maxDepth(root)).Send()
+	log.Info().Interface("pre order", preOrder(root)).Send()
+	log.Info().Interface("mid order", midOrder(root)).Send()
 }
 
-func TestClaimStairs(t *testing.T)  {
+func TestClaimStairs(t *testing.T) {
 	log.Info().Int("claim methods", climbStairs(4)).Send()
+}
+
+func TestRep(t *testing.T) {
+	log.Info().Interface("len", maxsub("")).Send()
+}
+
+func TestQuick(t *testing.T) {
+	//quick := []int{6, 3, 7, 9, 4, 2}
+	//quickSort(quick, 1, len(quick))
+	//log.Info().Interface("out", quick).Send()
+	arr := []int{5, 24, 17, 8, 3, 78}
+	bubblingSort(arr)
+	log.Info().Interface("sort", arr).Send()
 }

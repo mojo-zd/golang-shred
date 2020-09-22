@@ -1,5 +1,9 @@
 package alg
 
+import (
+	"strings"
+)
+
 // pwwkew
 func lengthOfLongestSubstring(s string) int {
 	//freq := make([]int, 128)
@@ -52,4 +56,24 @@ func max(x, y int) int {
 		return y
 	}
 	return x
+}
+
+func maxsub(s string) int {
+	if len(s) == 0 {
+		return 0
+	}
+
+	var max, start int
+	for i := 1; i <= len(s); i++ {
+		index := strings.Index(s[start:i-1], string(s[i-1]))
+		// 重复了 移动窗口
+		if index >= 0 {
+			start += index + 1
+		}
+
+		if len := i - start; max < len {
+			max = len
+		}
+	}
+	return max
 }
