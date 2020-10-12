@@ -1,7 +1,6 @@
 package basics
 
 import (
-	"fmt"
 	"github.com/rs/zerolog/log"
 	"testing"
 	"time"
@@ -94,8 +93,38 @@ func TestChanClose(t *testing.T) {
 	chanClose()
 }
 
-func TestFunc(t *testing.T) {
-	nil := 123
-	fmt.Println(nil)
-	var _ map[string]int = nil
+func TestCloseFunc(t *testing.T) {
+	x := 1
+	s := closeFunc(x)
+	x = 2
+	s()
+	log.Info().Interface("out", s()).Interface("ss", closeInnerFunc()()).Send()
+}
+
+func TestCloseFuncArr(t *testing.T) {
+	ss := closeFuncArr([]int{1, 2, 3})
+	for _, s := range ss {
+		s()
+	}
+}
+
+type User struct {
+	IDs []int
+}
+
+func TestS(t *testing.T) {
+	user := User{}
+	user.IDs = append(user.IDs, 1)
+	user.IDs = append(user.IDs, 2)
+	user.IDs = append(user.IDs, 3)
+	a := append(user.IDs, 4)
+	log.Info().Interface("append 4 cap", cap(user.IDs)).Interface("slice", user.IDs).Interface("a", a).Send()
+	b := append(user.IDs, 5)
+	log.Info().Interface("append 5 cap", cap(user.IDs)).Interface("slice", user.IDs).Interface("b", b).Send()
+	c := append(user.IDs, 6)
+	log.Info().Interface("append 6 cap", cap(user.IDs)).Interface("slice", user.IDs).Interface("c", c).Send()
+	d := append(user.IDs, 7)
+	log.Info().Interface("append 7 cap", cap(user.IDs)).Interface("slice", user.IDs).Interface("d", d).Send()
+	e := append(user.IDs, 8)
+	log.Info().Interface("append 8 cap", cap(user.IDs)).Interface("slice", user.IDs).Interface("e", e).Send()
 }
