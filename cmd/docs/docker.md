@@ -13,3 +13,5 @@ copy仅仅是拷贝，add具备一些其他功能 eg:tar提取
 运行、已暂停、重新启动、已退出
 
 - dockershim
+(kubelet --> dockershim)(dockershim内嵌在kubelet中) --> dockershim接受请求转化为docker deamon能懂的请求(请求创建容器) -->
+docker daemon运行了一个守护进程containerd，并通知containerd创建容器-->containerd shim真正执行容器的创建

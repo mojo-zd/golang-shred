@@ -41,3 +41,16 @@ func deferKnown(p *Person) {
 	//p.age = 29
 	p = &Person{29}
 }
+
+func deferRecover() {
+	defer func() {
+		if err := recover(); err != nil {
+			fmt.Println("捕获异常", err)
+		}
+	}()
+
+	go func() {
+		panic("panic")
+	}()
+	panic("crash")
+}

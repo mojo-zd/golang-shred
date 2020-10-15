@@ -26,3 +26,28 @@ schedule监听选择合适的主机--> kubelet监听获取信息进行资源分�
 - List-Watch机制
 1. List
 2. Watch
+informer监听机制 https://juejin.im/post/6844903631787917319
+
+- pod回调方式
+pod回调包含PostStart(容器创建之后)、PreStop(容器停止之前)
+1. exec
+2. http
+
+#### 依赖启动
+- initContainer方式
+1. 通过initContainer定义exec或者curl方法检查第三方组件是否成功
+2. 被依赖的组件需要配置readness检查
+
+- 业务逻辑处理方式
+不能连接直接crash业务容器
+
+#### 健康检查
+readinessProbe 通过检查pod状态讲ready设置为true|false，为false时候service关联的ep将会被移除，放置流量路由到不健康的实例
+livenessProbe 检查容器应用是否正常，不正常就按照重启策略进行操作 
+
+#### pod阶段
+pod阶段: Pending、Running、Succeeded、Failed、Unknown
+容器状态: Waiting、Running、Terminated
+
+#### 工具
+1. kubectl-debug

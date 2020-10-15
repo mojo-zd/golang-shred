@@ -11,7 +11,8 @@ func TestWidget(t *testing.T) {
 }
 
 func TestDeferCall(t *testing.T) {
-	deferCall()
+	//deferCall()
+	deferRecover()
 }
 
 func TestRange(t *testing.T) {
@@ -99,6 +100,16 @@ func TestCloseFunc(t *testing.T) {
 	x = 2
 	s()
 	log.Info().Interface("out", s()).Interface("ss", closeInnerFunc()()).Send()
+}
+
+func TestCLose(t *testing.T)  {
+	bar := myFunc()
+	val1 := bar()
+	val2 := bar()
+	f := extFunc(20)
+	f()
+	f()
+	log.Info().Int("value 1", val1).Int("value 2", val2).Send()
 }
 
 func TestCloseFuncArr(t *testing.T) {

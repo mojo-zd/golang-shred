@@ -115,6 +115,9 @@ https://mp.weixin.qq.com/s?__biz=MzI2MDA1MTcxMg==&mid=2648466918&idx=2&sn=151a81
 https://mp.weixin.qq.com/s?__biz=MzI2MDA1MTcxMg==&mid=2648466928&idx=1&sn=5d4f1c2c7802e3c7520b4e7c2fd05634&chksm=f247439fc530ca89da7b4446e6a5e3e87dc047d695ad1ad62916f2a7eccae244d7b4dfbca0de&scene=21#wechat_redirect
 https://mp.weixin.qq.com/s?__biz=MzI2MDA1MTcxMg==&mid=2648466923&idx=1&sn=cfca1b9031db3b5c8e6cb52e854fdb45&chksm=f2474384c530ca92722af02b7b36c6d4a7545ddd57b65fd3b48b61535da8417f89e12d79e5eb&scene=21#wechat_redirect
 
+- defer捕获
+主程中recover无法捕获协程的异常
+
 - recover调用时机
 recover() 必须在 defer() 函数中直接调用才有效
 ```

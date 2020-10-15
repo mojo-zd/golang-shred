@@ -38,3 +38,18 @@ func closeFuncArrUp(arr []int) []func(m int) int {
 	}
 	return xx
 }
+
+func myFunc()  func() int{
+	foo := 0
+	return func() int {
+		foo ++
+		return foo
+	}
+}
+
+func extFunc(n int) func() {
+	n++
+	return func() {
+		fmt.Println(n)
+	}
+}
