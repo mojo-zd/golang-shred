@@ -37,6 +37,7 @@ func TestNew(t *testing.T) {
 func TestSlice(t *testing.T) {
 	gSlice()
 	gSliceCut()
+	sliceIsAttr()
 }
 
 func TestSliceAppend(t *testing.T) {

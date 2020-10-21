@@ -1,6 +1,9 @@
 package basics
 
-import "github.com/rs/zerolog/log"
+import (
+	"encoding/json"
+	"github.com/rs/zerolog/log"
+)
 
 /**
  * copy(dst, src) 切片拷贝时候 如果dst为nil则不能拷贝任何元素  如果dst不为空 则最多拷贝dst cap大小的元素到dst数组
@@ -40,7 +43,8 @@ func gSliceCopy() {
 }
 
 type S struct {
-	Name string
+	Name string `json:"name"`
+	Child []int `json:"child"`
 }
 
 // range 做了拷贝和原数组不是指向的同一地址不能直接修改  需要使用索引的形式修改
@@ -48,4 +52,15 @@ func gSliceCite(slice []S) {
 	for index := range slice {
 		slice[index].Name = "kimo"
 	}
+}
+
+func sliceIsAttr()  {
+	var st S
+	s := `{"name": "mojo", "child": [1,2,3]}`
+	json.Unmarshal([]byte(s), &st)
+	aa := st.Child
+	log.Info().Interface("before slice", aa).Msg("")
+	s = `{"name": "mojo", "child": [3,4,5,6,7,8,9]}`
+	json.Unmarshal([]byte(s), &st)
+	log.Info().Interface("after slice", aa).Msg("")
 }
