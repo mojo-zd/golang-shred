@@ -1,6 +1,7 @@
 package basics
 
 import (
+	"encoding/json"
 	"github.com/rs/zerolog/log"
 	"testing"
 	"time"
@@ -139,4 +140,11 @@ func TestS(t *testing.T) {
 	log.Info().Interface("append 7 cap", cap(user.IDs)).Interface("slice", user.IDs).Interface("d", d).Send()
 	e := append(user.IDs, 8)
 	log.Info().Interface("append 8 cap", cap(user.IDs)).Interface("slice", user.IDs).Interface("e", e).Send()
+}
+
+func TestM(t *testing.T)  {
+	s := `{"name": "mojo"}`
+	m := make(map[string]string)
+	json.Unmarshal([]byte(s), m)
+	log.Info().Interface("info", m).Send()
 }
