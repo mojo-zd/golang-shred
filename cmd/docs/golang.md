@@ -39,6 +39,9 @@ golang中函数的参数传递其实是值传递, 是对原有数据的一份拷
 > map, chan通过make以后其实返回的是*hmap、*hchan，所以在通过参数传递以后对map的修改会反应到外部
 > slice中元素指向是的data的指针,但是永远修改不了len和cap，因为他们是属于值拷贝。如果要修改需要传入*slice
 
+#### 工具
+- golint静态代码检查工具
+- golangci-lint定制化检查
 
 public interface Channel<T>
 {

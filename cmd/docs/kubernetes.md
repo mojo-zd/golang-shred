@@ -33,6 +33,26 @@ pod回调包含PostStart(容器创建之后)、PreStop(容器停止之前)
 1. exec
 2. http
 
+#### kubernetes扩展方式
+1. crd
+2. controller
+3. schedule extender
+4. scheduler framework、aggregated APIServer
+
+- schedule extender
+kube-scheduler先执行内置filter，然后调度再通过http调用extender注册的webhook，将调度的pod和node信息发送给extender，根据返回的filter结果作为最终结果
+弊端:
+性能较差，无法支持高吞吐量（序列化反序列化，http调用）
+
+- multiple schedulers
+和default scheduler平级
+弊端:
+研发成本较高
+
+- scheduler framework
+为了Kube-scheduler扩展性更好、代码更简洁, 社区推出了scheduler framework
+
+
 #### 依赖启动
 - initContainer方式
 1. 通过initContainer定义exec或者curl方法检查第三方组件是否成功
@@ -51,3 +71,16 @@ pod阶段: Pending、Running、Succeeded、Failed、Unknown
 
 #### 工具
 1. kubectl-debug
+
+#### 调试小妙招
+for i in $(kubectl get deploy | awk 'NR>1 {print $1}'); do kubectl get deploy $i --template '{{range $idx, $c := .spec.template.spec.containers}}{{$c.image}}
+{{end}}'; done
+
+#### sts
+- sts使用场景
+1. 稳定的唯一网络标识(eg: pod-1, pod-2)
+2. 稳定的持久化存储
+
+- sts特性
+1. 采用partition方式可实现灰度部署
+2. 执行podManagementPolicy="Parallel"可实现并行删除sts pod
