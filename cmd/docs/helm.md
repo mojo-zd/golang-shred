@@ -36,4 +36,9 @@ helm history repo
 9. 具体需要获取那些资源
 通过`helm get manifest repo` 获取到资源列表  过滤条件为 `app.kubernetes.io/instance={releaseName}`
 
-> 问题: 租户信息存储(存放在value中)
+10. 一些额外的信息可以存放在chart的annotation中
+
+#### 提取helm公共包
+1. 缓存index文件
+2. 缓存chart.tar.gz
+3. 提供helm相关操作入口
