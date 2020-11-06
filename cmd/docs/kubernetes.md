@@ -69,6 +69,9 @@ livenessProbe 检查容器应用是否正常，不正常就按照重启策略进
 pod阶段: Pending、Running、Succeeded、Failed、Unknown
 容器状态: Waiting、Running、Terminated
 
+#### CNI
+cni分为三种Overlay、router、underlay
+
 #### 工具
 1. kubectl-debug
 

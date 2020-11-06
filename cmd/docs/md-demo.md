@@ -46,7 +46,6 @@ sequenceDiagram
     Bob-->>John: Jolly good!
 ```
 
-
 ```mermaid
 journey
     title My working day
@@ -57,4 +56,28 @@ journey
     section Go home
       Go downstairs: 5: Me
       Sit down: 5: Me
+```
+
+#### 正文:
+```mermaid
+sequenceDiagram
+    participant CNI
+    participant POD IP
+    participant KubeProxy
+    CNI->>POD IP: cni plugin assign pod ip
+    KubeProxy->>POD IP: listener pod ip change & generate ipvs rules
+```
+
+kubernetes中POD IP生成和生效流程
+```mermaid
+graph TB;
+    A(为集群分配一个网络大段) --> B(为主机分配一个网络段)
+    B(CNI分配POD IP)-->C(kubelet监听变化);
+    C-->D(kube-proxy下发ipvs规则)
+```
+
+cni如何实现不冲突的IP
+```mermaid
+graph TB;
+    A(分配Node网络段)-->B(根据Node网络段分配Pod网络段/24)
 ```
