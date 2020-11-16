@@ -43,6 +43,12 @@ golang中函数的参数传递其实是值传递, 是对原有数据的一份拷
 - golint静态代码检查工具
 - golangci-lint定制化检查
 
+#### 小技巧
+- 运行除_test.go以外的所有go文件
+```
+go run $(ls -1 *.go | grep -v _test.go)
+```
+
 public interface Channel<T>
 {
     void Send(T data);

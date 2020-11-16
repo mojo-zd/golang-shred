@@ -33,6 +33,10 @@ pod回调包含PostStart(容器创建之后)、PreStop(容器停止之前)
 1. exec
 2. http
 
+#### kubernetes高可用
+- 堆控制平面 etcd和控制平面在同一个集群中
+- 使用外部集群方式  etcd和控制平面分开部署
+
 #### kubernetes扩展方式
 1. crd
 2. controller
@@ -72,12 +76,35 @@ pod阶段: Pending、Running、Succeeded、Failed、Unknown
 #### CNI
 cni分为三种Overlay、router、underlay
 
+#### CSI
+CSI的发展经历了in-tree、flexVolume、csi
+1. in-tree即为讲插件打包进行kubernetes可执行文件  授权、可执行文件偏大、重新编译要处理整个可执行文件、插件越多crash风险越高
+2. flexVolume 通过外部脚本集成外部存储  驱动需要通过宿主机的跟文件系统访问脚本、如果插件需要依赖第三方包需要在所有节点解决依赖和兼容问题
+3. CSI分为一下三个部分
+1) Identity Service 用于返回插件信息
+2) Controller Service 实现Volume的CRUD
+3）Node Service 运行在所有的节点, 用于实现把所有的volume挂载到当前节点的指定目录
+
+- 分布式存储部署
+1. 设计一套针对云原生的分布式存储系统 e.g. Longhorn、OpenEBS
+2. 通过适配器的方式 适配原有的分布式存储 e.g. Rook
+
+- Longhorn
+Longhorn 存储的xxx.img文件采用raw(linux Sparse稀疏文件)格式文件,会受到磁盘大小和性能限制, 提供了内置Web ui
+
 #### 工具
 1. kubectl-debug
 
 #### 调试小妙招
+1. 查看deploy中所有的image
+```
 for i in $(kubectl get deploy | awk 'NR>1 {print $1}'); do kubectl get deploy $i --template '{{range $idx, $c := .spec.template.spec.containers}}{{$c.image}}
 {{end}}'; done
+```
+2. 查看主机上的块设备
+```
+lsblk -S
+```
 
 #### sts
 - sts使用场景

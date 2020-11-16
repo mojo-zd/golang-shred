@@ -47,15 +47,16 @@ func main() {
 	}
 
 	for _, release := range releases {
-		log.Println(release.Chart.Metadata.Annotations)
+		log.Println("release name:",release.Name, release.Chart.Metadata.Annotations)
 	}
+}
 
+func install(cfg *action.Configuration)  {
 	chart, err := loadChart(charturl)
 	if err != nil {
 		logrus.Error("load chart failed", err)
 		return
 	}
-
 	installer := action.NewInstall(cfg)
 	installer.ReleaseName = "mojo1"
 	installer.Namespace = namespace

@@ -38,7 +38,25 @@ helm history repo
 
 10. 一些额外的信息可以存放在chart的annotation中
 
+#### helm 内置函数
+helm中除了包含go模板内置函数还包含sprig函数
+1. default e.g. {{ default value  give_value}}
+2. if/else
+3. define // 定义新的命名模板
+4. template // 导入模板  `{{ template "xx.xxx" .}}` 后面的`.`标识作用域
+5. with // 指定范围 e.g. 使用`.Values.corese`的`k8s`字段可以用`.Values.corese.k8s` 
+如果使用`with`则可以`{{ with .Values.corese }}` `{{ .k8s }}`
+6. range // 循环块
+7. block // 生命一个特殊的可填写的模块区域
+8. 空格控制 `{{- ` 空格左移, ` -}}`表示删除右边的空格,这种需要慎用可能会删除右侧的换行符导致两行合并为一行
+9. title // 把首字母变为大写
+10. 变量申明 // 申明: `{{- $releaseName := .Release.Name -}}` 使用: `{{ $releaseName }}`
+11. now // 获取当前时间
+12. include // 引入模板文件 可以通过 `indent count`控制空格
+13. index .arr 2
+ 
 #### 提取helm公共包
 1. 缓存index文件
 2. 缓存chart.tar.gz
 3. 提供helm相关操作入口
+4. add repo更新index file
