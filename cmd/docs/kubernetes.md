@@ -28,6 +28,11 @@ schedule监听选择合适的主机--> kubelet监听获取信息进行资源分�
 2. Watch
 informer监听机制 https://juejin.im/post/6844903631787917319
 
+组件:
+Reflect 监听资源变化 把信息放入delta queue
+Informer 注册回调函数，获取队列信息交给indexer组件做缓存处理。回调函数需要处理数据时直接从缓存中获取
+Indexer 接受消息缓存数据到本地
+
 - pod回调方式
 pod回调包含PostStart(容器创建之后)、PreStop(容器停止之前)
 1. exec
@@ -37,16 +42,35 @@ pod回调包含PostStart(容器创建之后)、PreStop(容器停止之前)
 - 堆控制平面 etcd和控制平面在同一个集群中
 - 使用外部集群方式  etcd和控制平面分开部署
 
+
+### 控制平面
+主要包含组件
+- kube-apiserver
+- kube-scheduler
+- etcd
+- kube-controller-manager (理论上讲控制器都是单独的进程,为了降低复杂度被编译到一个可执行文件中并在一个进程中执行), 
+包括node-controller、replicas-controller、endpoints-controller、service account & token controller
+
+### Node组件
+- kubelet
+- kube-proxy
+- CRI
+
+### 插件
+https://kubernetes.io/zh/docs/concepts/cluster-administration/addons/
+
 #### kubernetes扩展方式
 1. crd
 2. controller
-3. schedule extender
+3. scheduler extender
 4. scheduler framework、aggregated APIServer
 
 - schedule extender
 kube-scheduler先执行内置filter，然后调度再通过http调用extender注册的webhook，将调度的pod和node信息发送给extender，根据返回的filter结果作为最终结果
 弊端:
 性能较差，无法支持高吞吐量（序列化反序列化，http调用）
+只能在Filter、Prioritize、Bind之后使用
+需要自己进行缓存处理
 
 - multiple schedulers
 和default scheduler平级
