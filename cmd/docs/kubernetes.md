@@ -90,7 +90,7 @@ kube-scheduler先执行内置filter，然后调度再通过http调用extender注
 不能连接直接crash业务容器
 
 #### 健康检查
-readinessProbe 通过检查pod状态讲ready设置为true|false，为false时候service关联的ep将会被移除，放置流量路由到不健康的实例
+readinessProbe 通过检查pod状态将ready设置为true|false，为false时候service关联的ep将会被移除，防止流量路由到不健康的实例
 livenessProbe 检查容器应用是否正常，不正常就按照重启策略进行操作 
 
 #### pod阶段
