@@ -40,3 +40,5 @@ curl -i http://xx.xx.xx.xx:35357/v3/auth/tokens -H "Content-type: application/js
 
 #### container api (include magnum)
 - https://docs.openstack.org/api-ref/container-infrastructure-management/
+
+集群管理、镜像中心、监控、编排、helm jaeger istio集成
