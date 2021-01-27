@@ -26,6 +26,9 @@
 - role
 role可以简单分为admin、member, admin又包括`cloud admin`、`domain admin`、`project admin`
 
+#### keystone
+
+
 ### openstack api list
 - https://docs.openstack.org/zh_CN/api-quick-start/
 

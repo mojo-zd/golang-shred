@@ -8,3 +8,4 @@
 #### Command模式 command.go
 #### 策略模式 strategy.go
 #### 装饰器模式 decorator.go
+#### visitor模式 visitor/
