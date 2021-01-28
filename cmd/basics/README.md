@@ -182,3 +182,7 @@ type User2 = User // User2为User的别名
 解决方式: 
 1. 要么使用指针接受者
 2. 要么锁定义为指针类型
+
+#### golang下的同步原语
+sync.Mutex, sync.RWMutex, sync.WaitGroup, sync.Once
+1. sync.Mutex.Lock方法采用自旋的方式进行锁等待

@@ -18,3 +18,5 @@
 1. install dependency e.g. install openfaas crd
 2. install workloaddefinition  e.g. `openfaas` (真实使用的是`workload`中的`template`)
 3. install `application`  `vela-core`监听`application`并翻译`template`下发到k8s
+
+### dashboard

@@ -1,9 +1,15 @@
-package decorator
+package main
 
 import (
 	"fmt"
 	"net/http"
 )
+
+func main() {
+	http.HandleFunc("/", Handler(hello, WithBear, WithLogger))
+	fmt.Println("start server ...")
+	http.ListenAndServe(":8080", nil)
+}
 
 type HttpHandlerDecorator func(handler http.HandlerFunc) http.HandlerFunc
 
@@ -15,17 +21,20 @@ func Handler(h http.HandlerFunc, decorator ...HttpHandlerDecorator) http.Handler
 	return h
 }
 
-func Route() {
-	http.HandleFunc("/v1", Handler(hello, WithBear))
-}
-
 func hello(w http.ResponseWriter, r *http.Request) {
-
+	fmt.Println("hello ...")
 }
 
 func WithBear(handler http.HandlerFunc) http.HandlerFunc {
 	return func(writer http.ResponseWriter, request *http.Request) {
-		fmt.Println("with bear")
+		fmt.Println("registry bear auth ...")
+		handler(writer, request)
+	}
+}
+
+func WithLogger(handler http.HandlerFunc) http.HandlerFunc {
+	return func(writer http.ResponseWriter, request *http.Request) {
+		fmt.Println("registry logger ...")
 		handler(writer, request)
 	}
 }
