@@ -2,9 +2,10 @@ package basics
 
 import (
 	"encoding/json"
-	"github.com/rs/zerolog/log"
 	"testing"
 	"time"
+
+	"github.com/rs/zerolog/log"
 )
 
 func TestWidget(t *testing.T) {
@@ -14,6 +15,18 @@ func TestWidget(t *testing.T) {
 func TestDeferCall(t *testing.T) {
 	//deferCall()
 	deferRecover()
+}
+
+func TestDeferAn(t *testing.T) {
+	t.Log("increaseA", increaseA())
+}
+
+func increaseA() int {
+	var i int
+	defer func() {
+		i++
+	}()
+	return i
 }
 
 func TestRange(t *testing.T) {
@@ -104,7 +117,7 @@ func TestCloseFunc(t *testing.T) {
 	log.Info().Interface("out", s()).Interface("ss", closeInnerFunc()()).Send()
 }
 
-func TestCLose(t *testing.T)  {
+func TestCLose(t *testing.T) {
 	bar := myFunc()
 	val1 := bar()
 	val2 := bar()
@@ -142,9 +155,15 @@ func TestS(t *testing.T) {
 	log.Info().Interface("append 8 cap", cap(user.IDs)).Interface("slice", user.IDs).Interface("e", e).Send()
 }
 
-func TestM(t *testing.T)  {
+func TestM(t *testing.T) {
 	s := `{"name": "mojo"}`
 	m := make(map[string]string)
 	json.Unmarshal([]byte(s), m)
 	log.Info().Interface("info", m).Send()
+}
+
+func TestEqual(t *testing.T) {
+	s1 := EqStruct{Name: "mojo", Sub: &SubStruct{Day: "monday"}}
+	s2 := EqStruct{Name: "mojo", Sub: &SubStruct{Day: "monday"}}
+	t.Log("is it equal?", StructEqual(s1, s2))
 }

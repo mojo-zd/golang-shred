@@ -9,3 +9,11 @@
 
 ## 微服务时代的产物
 - 伸缩扩容 多购买服务器部署多套副本
+
+
+### 常用概念
+#### Semantic Versioning (semver) 语义化版本
+语义化版本包含以下几个部分MAJOR.MINOR.PATCH
+MAJOR: 代表进行了不兼容API调整
+MINOR: 向后兼容的方式添加功能
+PATCH: 向后兼容的方式修复程序

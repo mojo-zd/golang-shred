@@ -29,3 +29,10 @@ openssl genrsa -des3 -out server.key 1024
 openssl req -new -key server.key -out server.csr
 openssl ca -in server.csr -out server.crt -cert ca.crt -keyfile ca.key
 ```
+
+## 安全协议
+### TLS
+传输层安全协议, 前身为SSL
+
+### SSL
+安全套接字
