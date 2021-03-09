@@ -1,0 +1,13 @@
+- udp、tcp协议
+- 乐观锁、悲观锁
+- atomic包
+- protobuf协议
+- GC GPMS goroutine实现原理 读写屏障
+- 栈
+- 三次握手
+- Socket
+- map、chain底层原理
+- 数据库分表、分库、集群
+- https原理 (对称加密、非对称加密)
+- http状态码/header/请求方法, 那些请求方法是幂等的
+- golang协程原理

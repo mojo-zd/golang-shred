@@ -1,7 +1,9 @@
 package basics
 
 import (
+	"context"
 	"encoding/json"
+	"reflect"
 	"testing"
 	"time"
 
@@ -19,6 +21,24 @@ func TestDeferCall(t *testing.T) {
 
 func TestDeferAn(t *testing.T) {
 	t.Log("increaseA", increaseA())
+	t.Log("increaseB", increaseB())
+	t.Log("increaseC", increaseC())
+	t.Log("increaseD", increaseD())
+	a := []int{1, 2, 3}
+	t.Log("cap:", cap(a))
+	var std = Student{}
+	std.Speak("")
+}
+
+type People interface {
+	Speak(talk string) string
+}
+
+type Student struct {
+}
+
+func (s *Student) Speak(talk string) string {
+	return "hi"
 }
 
 func increaseA() int {
@@ -29,6 +49,27 @@ func increaseA() int {
 	return i
 }
 
+func increaseB() (r int) {
+	defer func() {
+		r++
+	}()
+	return 0
+}
+
+func increaseC() (r int) {
+	t := 5
+	defer func() {
+		t += 5
+	}()
+	return t
+}
+
+func increaseD() (r int) {
+	defer func(r int) {
+		r += 5
+	}(r)
+	return 1
+}
 func TestRange(t *testing.T) {
 	var slice = []int{1, 6, 3, 8, 2}
 	log.Info().Interface("map", Range(slice)).Send()
@@ -82,6 +123,29 @@ func TestSelectorType(t *testing.T) {
 	switchType(Circle{})
 }
 
+func TestSelect(t *testing.T) {
+	ch := make(chan int)
+	close(ch)
+	t.Log("running...", <-ch)
+}
+
+func TestChain(t *testing.T) {
+	//one := 0
+	//one := 0
+	var s []int
+	s = append(s, 1)
+	ch := make(chan int)
+	close(ch)
+	if _, ok := <-ch; ok {
+		close(ch)
+	}
+
+	//t.Log("start write...")
+	//ch <- 4
+	//ch <- 4
+	t.Log("only write...")
+}
+
 func TestInterfaceEmbed(t *testing.T) {
 	interfaceEmbed()
 }
@@ -91,6 +155,13 @@ func TestDefer(t *testing.T) {
 }
 
 func TestIota(t *testing.T) {
+	//aa := []string{"kk", "mm", "zz"}
+	//for i, v := range aa {
+	//	go func() {
+	//		t.Log("i:", i, ",v:", v)
+	//	}()
+	//}
+
 	iotaDefined()
 	iotaMulit()
 	direction()
@@ -103,6 +174,11 @@ func TestChanSelect(t *testing.T) {
 
 func TestChanBuffer(t *testing.T) {
 	chanBuffer()
+}
+
+func TestValPoint(t *testing.T) {
+	d := &Dog{}
+	sendNotify(d)
 }
 
 func TestChanClose(t *testing.T) {
@@ -166,4 +242,22 @@ func TestEqual(t *testing.T) {
 	s1 := EqStruct{Name: "mojo", Sub: &SubStruct{Day: "monday"}}
 	s2 := EqStruct{Name: "mojo", Sub: &SubStruct{Day: "monday"}}
 	t.Log("is it equal?", StructEqual(s1, s2))
+}
+
+func TestTimeoutContext(t *testing.T) {
+	TimeoutContext(context.Background(), time.Millisecond*100)
+}
+
+func TestUpdateValue(t *testing.T) {
+	var x = 4.0
+	v := reflect.ValueOf(&x)
+	v.Elem().SetFloat(5.3)
+	t.Log("can address", v.CanAddr())
+}
+
+func TestTicker(t *testing.T) {
+	c := time.NewTicker(time.Second)
+	for range c.C {
+		t.Log(".")
+	}
 }

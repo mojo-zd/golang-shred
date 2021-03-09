@@ -1,10 +1,15 @@
 package alg
 
 import (
-	"github.com/rs/zerolog/log"
 	"strings"
 	"testing"
+
+	"github.com/rs/zerolog/log"
 )
+
+var db struct {
+	Dns string
+}
 
 // 两数之和
 func TestSum(t *testing.T) {
@@ -129,4 +134,17 @@ func TestQuick(t *testing.T) {
 	arr := []int{5, 24, 17, 8, 3, 78}
 	bubblingSort(arr)
 	log.Info().Interface("sort", arr).Send()
+}
+
+func TestLinkHead(t *testing.T) {
+	t.Log("insert head...")
+	InsertHead()
+	t.Log("insert tail...")
+	InsertTail()
+}
+
+func TestLinkReverse(t *testing.T) {
+	node := InsertHead()
+	t.Log("========")
+	ShowLink(ReverseNode(node))
 }

@@ -15,10 +15,11 @@ const (
 	name = "name"
 	c    = iota
 	d    = iota
+	bug  = "bug"
 )
 
 func iotaMulit() {
-	fmt.Println(name, c, d)
+	fmt.Println(name, c, d, bug)
 }
 
 type Direction int
