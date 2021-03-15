@@ -1,8 +1,9 @@
 package main
 
 import (
-	"github.com/rs/zerolog/log"
 	"time"
+
+	"github.com/rs/zerolog/log"
 )
 
 func main() {
@@ -53,12 +54,11 @@ func optimize() {
 // 思考: 对map遍历时 新增的元素会遍历到吗
 // 答案: 可能会 原因如上
 
-
 // 思考: 下面的遍历中启动goroutine有问题吗
 // 原因: 拷贝
 // 矫正: 1.传值到goroutine 2.使用局部变量
-func goroutine()  {
-	arr := []int{1,2,3,4}
+func goroutine() {
+	arr := []int{1, 2, 3, 4}
 	for _, v := range arr {
 		go func() {
 			log.Info().Int("value", v).Send()

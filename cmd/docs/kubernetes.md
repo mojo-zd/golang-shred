@@ -153,7 +153,7 @@ lsblk -S
 flannel支持多种网络模型, vxlan、udp、hostgw、ipip， vxlan和udp的区别在于vxlan是内核封包而udp是flanneld用户态进程封包，
 所以udp的性能会差一些。hostgw是一种主机网关模式容器到另一个主机上容器的网关设置成所在主机的网卡地址，和calico非常相似，
 只不过calico是通过BGP声明的，而hostgw是通过中心的etcd分发，所以hostgw是直连模式不需要经过overlay封包和拆包，性能比较高,
-但是hostgw必须是在一个二层网络，毕竟吓一跳的路由必须在邻居表中，否则无法通行。
+但是hostgw必须是在一个二层网络，毕竟下一跳的路由必须在邻居表中，否则无法通行。
 
 优势:
 1. 安装配置简单, 可以使用etcd作为存储
