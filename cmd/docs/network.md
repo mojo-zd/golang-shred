@@ -47,3 +47,75 @@ ip+端口找到真实主机(通过mac地址或者相关算法)
 
 ## 七层负载均衡
 利用URL等协议实现
+
+
+## TCP
+### 什么是协议栈
+是一种特定的沟通的模式
+
+### TCP如何保证包的顺序性
+### TCP的拥塞控制
+### 网断了,TCP怎么处理
+### TCP的粘包与分包
+
+> 网卡是将数字型号转换为光电信号
+
+### 查看端口占用
+- netstat
+```
+-t (tcp) 仅显示tcp相关选项
+-u (udp)仅显示udp相关选项
+-n 拒绝显示别名，能显示数字的全部转化为数字
+-l 仅列出在Listen(监听)的服务状态
+-p 显示建立相关链接的程序名
+```
+
+### 创建网络命名空间
+```
+ip netns add eden //创建命名空间
+ip netns exec eden bash //进入网络命名空间
+ip netns exec eden bash -rcfile <(echo "PS1=\"eden>\"")
+```
+
+### ip命令
+#### 两个命名空间通讯
+```
+ip link //查看链路层信息
+ip link set lo(device) down //关闭指定接口
+// 连接两个netns
+ip link add xi type veth peer name pan // 为两个ns创建共享工具
+ip link set xi netns xi //把共享工具的一边搭建到xi的netns
+ip link set pan netns pan //把共享工具的另一边搭建到pan的netns
+ip netns exec xi ip addr add dev xi 192.168.188.96/24 //固定范围
+ip netns exec pan ip addr add dev pan 192.168.188.96/24 //固定范围
+ip netns exec xi ip link set xi up //启用接口
+ip netns exec pan ip link set pan up //启用接口
+```
+
+#### 多个命名空间通讯
+```
+ip link add wangpo type bridge // 搭建桥
+ip link add wp2xmq type veth peer name xmq2wp // 在桥上搭建梯子
+ip link set xmq2wp netns xi // xi到wang的梯子放到xi的netns
+ip link set wp2xmq master wangpo
+ip netns exec xi ip addr add dev xi 192.168.188.96/24 //固定范围
+ip netns exec xi ip link set xi up //启用接口
+ip link set wp2xmq up // 启用接口
+...
+```
+
+## 网络设备
+### hub(集线器)
+集线器工作在物理设备上(广播)
+
+### Network bridge
+网桥工作在数据链接层(通过mac地址寻址),不会进行广播。端口映射了多个mac地址,并未解决完全的广播风暴(学习过程中优化).
+
+### Switch(交换机)
+交换机工作在L2(数据链接层),一个网口对应一个mac地址.完全解决了广播风暴
+
+### DHCP Server 
+动态主机配置协议, 给客户机动态分配IP、网关、DNS
+
+### NAT Device
+工作在L3(网络层)
