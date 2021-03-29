@@ -20,14 +20,13 @@ func InsertSort(arr []int) {
 	if len(arr) <= 1 {
 		return
 	}
-	for i := 1; i < len(arr); i++ {
-		j := i - 1
-		for ; j >= 0; j-- {
-			// 如果前一个比后一个大则换位置
-			if arr[j] > arr[i] {
-				arr[j] = arr[i]
-			}
+
+	for i := 0; i < len(arr)-1; i++ {
+		var j int
+		value := arr[i+1]
+		for j = i + 1; j >= 0 && value < arr[j-1]; j-- {
+			arr[j] = arr[j-1]
 		}
-		arr[j] = arr[i]
+		arr[j] = value
 	}
 }

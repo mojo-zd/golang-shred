@@ -66,7 +66,7 @@ func TestMoveZero(t *testing.T) {
 }
 
 func TestStr(t *testing.T) {
-	s := "abcdddaak"
+	s := "abcdefa"
 	log.Info().Int("str", lengthOfLongestSubstring1(s)).Send()
 }
 
@@ -79,15 +79,19 @@ func lengthOfLongestSubstring1(s string) int {
 		index := strings.Index(s[start:i], string(s[i]))
 		if index >= 0 {
 			start = i
-			//log.Info().Int("start", start).Send()
 		} else {
 			if len := i - start + 1; len > max {
 				max = len
-				log.Info().Interface("start", start).Interface("i", i).Send()
 			}
 		}
 	}
 	return max
+}
+
+func TestSub(t *testing.T) {
+	str := "abcabcbbacd"
+	max, sub := MaxSubStr(str)
+	t.Log("max sub len:", max, ",sub:", sub)
 }
 
 // 树的深度变量、前序遍历
@@ -134,6 +138,12 @@ func TestQuick(t *testing.T) {
 	arr := []int{5, 24, 17, 8, 3, 78}
 	bubblingSort(arr)
 	log.Info().Interface("sort", arr).Send()
+}
+
+func TestInsertSort(t *testing.T) {
+	arr := []int{5, 21, 19, 18, 10, 78}
+	InsertSort(arr)
+	log.Info().Interface("sorted", arr).Send()
 }
 
 func TestLinkHead(t *testing.T) {
