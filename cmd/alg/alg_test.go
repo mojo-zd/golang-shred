@@ -4,6 +4,12 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/mojo-zd/golang-shred/cmd/alg/search"
+
+	"github.com/mojo-zd/golang-shred/cmd/alg/ord"
+
+	"github.com/mojo-zd/golang-shred/cmd/alg/sorts"
+
 	"github.com/rs/zerolog/log"
 )
 
@@ -47,13 +53,6 @@ func TestAddTwoNum(t *testing.T) {
 	}
 }
 
-// 字符串最长子字符串
-func TestSubstring(t *testing.T) {
-	//s := "abcdabcebb"
-	//t.Log(s[0:1])
-	t.Log(lengthOfLongestSubstring("abcdabcebb"))
-}
-
 func TestMaxArea(t *testing.T) {
 	var arr = []int{1, 8, 6, 2, 5, 4, 8, 3, 7}
 	maxArea(arr)
@@ -90,7 +89,7 @@ func lengthOfLongestSubstring1(s string) int {
 
 func TestSub(t *testing.T) {
 	str := "abcabcbbacd"
-	max, sub := MaxSubStr(str)
+	max, sub := ord.MaxSubStr(str)
 	t.Log("max sub len:", max, ",sub:", sub)
 }
 
@@ -127,23 +126,42 @@ func TestClaimStairs(t *testing.T) {
 	log.Info().Int("claim methods", climbStairs(4)).Send()
 }
 
-func TestRep(t *testing.T) {
-	log.Info().Interface("len", maxsub("")).Send()
+func TestQuick(t *testing.T) {
+	arr := []int{5, 24, 17, 8, 3, 78}
+	//sorts.Bubble1Sort(arr)
+	arr = sorts.QuickSort(arr)
+	log.Info().Interface("quick sort", arr).Send()
 }
 
-func TestQuick(t *testing.T) {
-	//quick := []int{6, 3, 7, 9, 4, 2}
-	//quickSort(quick, 1, len(quick))
-	//log.Info().Interface("out", quick).Send()
+func TestBubble(t *testing.T) {
 	arr := []int{5, 24, 17, 8, 3, 78}
-	bubblingSort(arr)
-	log.Info().Interface("sort", arr).Send()
+	sorts.Bubble2Sort(arr)
+	log.Info().Interface("bubble sort", arr).Send()
+}
+
+func TestBinarySearch(t *testing.T) {
+	arr := []int{1, 4, 7, 8, 9, 12, 34}
+	t.Log("find:", search.BinarySearch(arr, 34))
 }
 
 func TestInsertSort(t *testing.T) {
 	arr := []int{5, 21, 19, 18, 10, 78}
-	InsertSort(arr)
+	sorts.InsertSort(arr)
 	log.Info().Interface("sorted", arr).Send()
+}
+
+func TestAddTwoLink(t *testing.T) {
+	first := &ord.Node{Value: 2, Next: &ord.Node{Value: 4, Next: &ord.Node{Value: 3}}}
+	second := &ord.Node{Value: 5, Next: &ord.Node{Value: 6, Next: &ord.Node{Value: 4}}}
+	out := ord.AddTwoLink(first, second)
+	for out != nil {
+		t.Log("value", out.Value)
+		out = out.Next
+	}
+}
+
+func TestPalindrome(t *testing.T) {
+	t.Log("is it palindrome", ord.IsPalindrome("A man, a plan, a canal: Panama"))
 }
 
 func TestLinkHead(t *testing.T) {
