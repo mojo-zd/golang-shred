@@ -1,4 +1,4 @@
-package design_pattern
+package proxy
 
 import "testing"
 

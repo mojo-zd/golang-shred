@@ -1,4 +1,4 @@
-package design_pattern
+package proxy
 
 type Subject interface {
 	Do() string
@@ -22,6 +22,6 @@ func (p *Proxy) Do() string {
 	// 调用真实对象
 	res += p.real.Do()
 	// 调用之后的操作，如缓存结果，对结果进行处理等。。
-	res +=":after"
-	return  res
+	res += ":after"
+	return res
 }

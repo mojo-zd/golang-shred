@@ -1,10 +1,10 @@
-package design_pattern
+package adapter
 
 import "testing"
 
 var expect = "adaptee method"
 
-func TestAdapter(t *testing.T)  {
+func TestAdapter(t *testing.T) {
 	adaptee := NewAdaptee()
 	target := NewAdapter(adaptee)
 	res := target.Request()

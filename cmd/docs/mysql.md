@@ -82,3 +82,56 @@ binlog属于server层日志,所有引擎都可以使用.为逻辑日志,记录�
 1. 对索引字段使用函数操作可能导致索引失效
 2. 隐式的数据类型转换
 3. like中%在前面可能导致索引失败
+
+## 集群模式
+### 主从模式
+1. 属于弱一致性
+- 需要解决读写分离逻辑
+- 主从同步可能会失败
+
+2. 主从复制原理
+- master将数据改变记录到二进制日志(binary log)
+- slave将master中的binary log event拷贝到它的中继日志
+- slave重做中继日志中的事件,将改变反应到它自己的数据
+
+3. 主从配置需要注意的地方
+- 主DB server和从DB server数据库版本要一致
+- 主DB server和从DB server的基础数据要一致
+- 主DB server需要开启二进制日志,主DB server和从DB server的server_id都必须唯一
+
+### PXC模式
+与主从模式不同, PXC在中间件中可以对多个mysql进行读写操作。但是每个mysql实例上一层都有一个PXC集群。PXC解决了强一致性问题
+1. 性能比主从低 但是数据安全
+2. PXC只支持Innodb模式
+3. 节点越多PXC同步越慢
+4. 保证PXC集群主机的硬件配置一致,不然配置低的会拖慢整个集群数据复制的进度
+
+### 混合架构
+根据不同需求可以搭建混合架构,通过中间件选择不同逻辑
+
+### 二进制日志文件(binlog)记录格式(binlog_format)
+1. statement-based replication(SBR) 基于SQL语句的复制
+缺点:
+使用函数时可能导致数据不一致
+优点:
+binlog数量较少,减少IO操作提高性能
+
+2. row-based replication (RBR)基于行的复制,记录每条数据的变化
+缺点:
+产生大量日志,尤其是alert table的时候会让日志暴涨
+优点:
+不会出现数据不一致问题
+
+3. MIXED模式,混合模式
+基于SBR、RBR做混合模式处理
+
+> 主从复制模式时重启master可能导致slave同步不了数据,需要冲洗配置slave的binlog位置和文件名
+
+### PXC集群方案和Replication区别
+1. PXC集群所有节点可读可写。Replication从节点不能写入,因为主从同步是单向的,无法从slave向master同步
+2. PXC同步机制是同步进行的(强一致性)。Replication是异步进行的,从节点如果停止同步依然可以向主节点同步数据正确返回,造成主从数据不一致
+3. PXC是牺牲性能保证数据一致性,Replication在性能上是高于PXC的。两者用途不一样,PXC用于重要信息存储,例如:订单、用户信息等。Replication
+用于一般信息存储,能够容忍数据丢失,例如:购物车、用户行为日志
+### MyCat
+- 数据分片
+- 读写分离

@@ -1,4 +1,4 @@
-package design_pattern
+package adapter
 
 // Target 适配器的目标接口
 type Target interface {

@@ -1,4 +1,4 @@
-package design_pattern
+package prototype
 
 type Cloneable interface {
 	Clone() Cloneable

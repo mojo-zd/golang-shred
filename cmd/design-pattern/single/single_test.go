@@ -1,8 +1,8 @@
-package design_pattern
+package single
 
 import "testing"
 
-func TestSingleton(t *testing.T)  {
+func TestSingleton(t *testing.T) {
 	s1 := GetInstance()
 	s2 := GetInstance()
 	if s1 != s2 {
