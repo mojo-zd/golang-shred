@@ -3,10 +3,12 @@ module github.com/mojo-zd/golang-shred
 go 1.15
 
 require (
+	github.com/StackExchange/wmi v0.0.0-20210224194228-fe8f1750fd46 // indirect
 	github.com/ajg/form v1.5.1 // indirect
 	github.com/briandowns/spinner v1.12.0
 	github.com/fasthttp-contrib/websocket v0.0.0-20160511215533-1f3b11f56072 // indirect
 	github.com/fatih/color v1.7.0
+	github.com/go-ole/go-ole v1.2.5 // indirect
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/google/go-querystring v1.0.0 // indirect
 	github.com/imkira/go-interpol v1.1.0 // indirect
@@ -15,7 +17,9 @@ require (
 	github.com/moul/http2curl v1.0.0 // indirect
 	github.com/rs/zerolog v1.19.0
 	github.com/sergi/go-diff v1.0.0 // indirect
+	github.com/shirou/gopsutil v3.21.4+incompatible
 	github.com/sirupsen/logrus v1.7.0
+	github.com/tklauser/go-sysconf v0.3.6 // indirect
 	github.com/valyala/fasthttp v1.17.0 // indirect
 	github.com/xeipuuv/gojsonschema v1.2.0 // indirect
 	github.com/yalp/jsonpath v0.0.0-20180802001716-5cc68e5049a0 // indirect
