@@ -1,5 +1,6 @@
 #### kubernetes工具
-- kubectl debug
+- kubectl debug  https://github.com/aylei/kubectl-debug
+- kubectx https://github.com/ahmetb/kubectx#installation 可以配合https://github.com/junegunn/fzf使用更方便
 
 #### golang工具
 

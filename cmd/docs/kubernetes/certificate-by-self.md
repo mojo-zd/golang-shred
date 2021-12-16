@@ -1,3 +1,6 @@
+## 理解kubernetes中证书使用原理
+https://zhaohuabing.com/post/2020-05-19-k8s-certificate/
+
 ## csr-viewer 只读权限
 ### csr-viewer
 1. 生成证书
