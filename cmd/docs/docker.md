@@ -10,13 +10,15 @@ docker实现主要依赖于linux的namespace、UnionFS、cgroups,可以实现网
 
 - cmd、entrypoint区别
 cmd为默认执行方式，如果不指定entrypoint则会默认执行cmd，如果指定则以entrypoint为准(可以动态指定参数)。
-cmd执行方式:
+`exec`执行方式:
 1. CMD ["executable", "param1", "param2"]
 必须指定可执行进程
 2. CMD ["param1","param2"] (as default parameters to ENTRYPOINT)
-3. CMD command param1 param2 (shell form)
+3. CMD command param1 param2 (`shell`执行方式)
 默认在 "/bin/sh -c"下执行
 注: 一个dockerfile只能有一个cmd, 如果有多个只有最后一个生效
+   
+> CMD后如果跟参数需要写入完成的命令才会生效
 
 entrypoint执行方式:
 如果run命令后有参数，所有内容都会作为entrypoint的参数传入。如果run后没有参数，只有cmd后面有，那么cmd的内容将会作为entrypoint的默认参数。--entrypoint可以覆盖dockerfile中默认的entrypoint
@@ -24,6 +26,39 @@ entrypoint执行方式:
 这种方式默认是在shell下执行的
 2. ENTRYPOINT command param1 param2 (shell form)
 任何cmd或run参数都不会被传入到entrypoint。
+
+示例:
+```
+ARG VERSION=latest
+FROM busybox:$VERSION
+ARG COMMENT="none"
+ENV CONTAINER="xiaolei"
+RUN ["/bin/sh", "-c", "if [ $COMMENT = \"none\" ];then  echo success > aa.txt;else echo faild and value:$COMMENT > aa.txt;COMMENT=\"out\";fi"]
+RUN echo $COMMENT > comment
+
+CMD ["-H"]
+ENTRYPOINT ["top", "-b"]
+```
+
+生成docker镜像:
+```
+docker build -t test .
+```
+
+run with --entrypoint:
+```
+docker run --rm --entrypoint sh test
+```
+
+run with addtional param:
+```
+docker run --rm test -n 3
+```
+
+run with override param:
+```
+docker run --rm --entrypoint top test -n 3
+```
 
 - add、copy区别
 copy仅仅是拷贝，add具备一些其他功能 eg:tar提取

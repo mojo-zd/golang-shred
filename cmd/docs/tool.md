@@ -10,6 +10,7 @@
 - iftop (容器网络流量)
 - tcpdump (抓包)
 最常用的ifconfig可查看网卡, 另外还有ethtool
+- ss 用于socket统计信息
 
 #### 作图工具
 1. vscode支持时序图、泳道图啦, 可以在vscode通过安装插件的方式实现。插件: draw.io、mermaid

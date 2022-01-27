@@ -166,3 +166,9 @@ calico使用BGP路由协议在主机间路由数据包, 这意味着在主机之
 1. 性能更好
 2. 更加灵活，可以定义网络安全策略
 3. 能够和istio集成控制pod流量
+
+### command
+如果要设置命令就设置在`command`之下, 如果要设置参数就卸载`args`字段之下，如果在配置文件中设置了容器启动的命令和参数,那么容器镜像中自带的命令和参数将被覆盖而不再执行,如果配置文件中只设置了参数,却
+没有设置对应的命令,那么容器镜像中自带的命令会使用该新参数作为其执行时的参数。
+
+参考: https://kubernetes.io/zh/docs/tasks/inject-data-application/define-command-argument-container/
