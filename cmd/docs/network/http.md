@@ -1,0 +1,2 @@
+HTTP1.x 默认开始keep-alive特性, 建立tcp连接后可以支持多个http，但是这些http请求都是串行执行
+HTTP2.x 开启了Multiplexing多路传输特性,可以同事执行多个http请求
