@@ -23,3 +23,7 @@
 ### 文档处理
 1. mdbook https://github.com/rust-lang/mdBook
 2. 图形转文本asciiflow  https://asciiflow.com/#/
+
+### 命令行工具
+- json viewer https://github.com/antonmedv/fx
+- jq 
